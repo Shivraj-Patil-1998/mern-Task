@@ -47,37 +47,6 @@ const registerUser = async (req, res) => {
     });
 };
 
-// const registerUser = async (req, res) => {
-//   const { name, email, password } = req.body
-//   const userExists = await userRegister.findOne({ email:email })
-//   if (userExists) {
-//     res.status(400).json({
-//       message:"email exist or somethin went wrong"
-//     })
-//   }
-//   const salt = await bcrypt.genSalt(10)
-//   const hashedPassword = await bcrypt.hash(password, salt)
-//   const user = await userRegister.create({
-//     name,
-//     email,
-//     password: hashedPassword,
-//   })
-
-//   if (user) {
-//     res.status(201).json({
-//       _id: user.id,
-//       name: user.name,
-//       email: user.email,
-//       token: generateToken(user._id),
-//     })
-//   } else {
-//     res.status(400).json({
-//       message:"email exist or something went wrong"
-//     })
-//   }
-// }
-
-
 const loginUsere = async (req, res) => {
   const { email, password } = req.body;
 

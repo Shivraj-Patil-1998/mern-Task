@@ -1,5 +1,6 @@
 const userData = require("../modal/userDataModal");
-const userRegister = require("../modal/userRegister");
+const fs = require('fs');
+const update = require('../multer/multer')
 
 // get user data
 const getUserData = async (req, res) => {
@@ -9,16 +10,22 @@ const getUserData = async (req, res) => {
 
 // post user data
 const postUserData = async  (req, res) => {
-  if (!req.body.text) {
-    res.status(400).json({
-      message: "enter data",
-    });
-  }
-  const profile = await userData.create({
-    text: req.body.text,
-    user: req.user.id,
-  });
-  res.status(200).json(profile);
+  update(req,res, (err)=> {
+    if(err){
+      console.log(err);
+    }else{ 
+      const newImage = new userData({
+        text:req.body.text,
+        image:{
+          data:fs.readFileSync ("uploads/" + req.file.filename),
+          contentType:"image/png",
+        },
+        user: req.user.id,
+      });
+      newImage.save()
+      .then(()=> res.send("succcess")).catch((err)=> console.log(err))
+    }
+   })
 };
 
 // update user data

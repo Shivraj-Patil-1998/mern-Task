@@ -9,7 +9,8 @@ const userData = mongoose.Schema({
         type:String
     },
     image:{
-        type:String
+        data:Buffer,
+        contentType:String
     }
 },{
     timestamps:true,
